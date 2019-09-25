@@ -336,7 +336,7 @@ map.addLayer({
 
 <script>
 
-var toggleableLayerIds = [ 'Breweries', 'Rock Bars', 'Points of Interest' ];
+var toggleableLayerIds = [ 'Breweries', 'Rock Bars', 'Points of Interest', 'Satellite' ];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
@@ -404,43 +404,16 @@ map.addControl(nav, 'top-left');
 var geocoder = new MapboxGeocoder({ // Initialize the geocoder
   accessToken: mapboxgl.accessToken, // Set the access token
   mapboxgl: mapboxgl, // Set the mapbox-gl instance
-  marker: false, // Do not use the default marker style
+  marker: {
+color: '#3c305a'
+},
+mapboxgl: mapboxgl
 });
 
 // Add the geocoder to the map
 map.addControl(geocoder, 'bottom-left');
 
 
-// After the map style has loaded on the page,
-// add a source layer and default styling for a single point
-map.on('load', function() {
-  map.addSource('single-point', {
-    type: 'geojson',
-    data: {
-      type: 'FeatureCollection',
-      features: []
-    }
-  });
-
-  map.addLayer({
-    id: 'point',
-    source: 'single-point',
-    type: 'symbol',
-     layout: {
-      "icon-image": "POINT_V-02",
-      "icon-allow-overlap": true,
-      "icon-size": 1.
-    }
-  });
-
-
-  // Listen for the `result` event from the Geocoder
-  // `result` event is triggered when a user makes a selection
-  //  Add a marker at the result's coordinates
-  geocoder.on('result', function(e) {
-    map.getSource('single-point').setData(e.result.geometry);
-  });
-});
 
 
 
