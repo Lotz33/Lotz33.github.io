@@ -190,6 +190,7 @@ map.on('click', function(e) {
 });
 
 
+
 // Center the map on the coordinates of any clicked symbol from the 'Breweries' layer.
 map.on('click', 'Breweries', function (e) {
 map.flyTo({center: e.features[0].geometry.coordinates});
@@ -199,9 +200,10 @@ map.on('click', 'Rock Bars', function (e) {
 map.flyTo({center: e.features[0].geometry.coordinates});
 });
 // Center the map on the coordinates of any clicked symbol from the 'Rock Bars' layer.
-map.on('click', 'Points of Interest', function (e) {
+map.on('click', 'OSM', function (e) {
 map.flyTo({center: e.features[0].geometry.coordinates});
 });
+
 
 // Add geolocate control to the map.
 map.addControl(new mapboxgl.GeolocateControl(), 'top-left');
@@ -296,7 +298,7 @@ map.addLayer({
         top: 5px;
         right: 5px;
         border-radius: 3px;
-        width: 120px;
+        width: 80px;
         border: 1px solid rgba(0,0,0,0.4);
         font-family: 'Ubuntu Regular', sans-serif;
     }
@@ -336,7 +338,7 @@ map.addLayer({
 
 <script>
 
-var toggleableLayerIds = [ 'Breweries', 'Rock Bars', 'Points of Interest', 'Satellite' ];
+var toggleableLayerIds = [ 'Breweries', 'Rock Bars', 'OSM', 'Satellite' ];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
@@ -386,15 +388,16 @@ map.on('mouseleave', 'Rock Bars', function () {
 map.getCanvas().style.cursor = '';
 });
 
-// Change the cursor to a pointer when the it enters a feature in the 'Points of Interest' layer.
-map.on('mouseenter', 'Points of Interest', function () {
+// Change the cursor to a pointer when the it enters a feature in the 'OSM' layer.
+map.on('mouseenter', 'OSM', function () {
 map.getCanvas().style.cursor = 'pointer';
 });
  
 // Change it back to a pointer when it leaves.
-map.on('mouseleave', 'Points of Interest', function () {
+map.on('mouseleave', 'OSM', function () {
 map.getCanvas().style.cursor = '';
 });
+
 
 // Add zoom and rotation controls to the map.
 var nav = new mapboxgl.NavigationControl();
