@@ -24,6 +24,7 @@
         width: 100%;
       }
 
+
 .mapboxgl-popup-content {
    max-width: 500px;
    min-width: 200px;
@@ -34,7 +35,8 @@
    box-shadow: 0 1px 2px rgba(0,0,0,0.10);
    padding-top: 10px;
    pointer-events: auto;
-   font: 200  'unbuntu Regular',
+   font: 200  'unbuntu Regular';
+   font-family: "Ubuntu Regular", sans-serif;
 }
 
    overflow-y: scroll;
@@ -116,43 +118,118 @@ a:active {
        
       }
     </style>
-  </head>
-  <body>
-    <div id='map'></div>
-    
-    <div class='absolute fl my24 mx24 py24 px24 bg-gray-faint round'>
-  <form id='params'>
-    <h4 class='txt-m txt-bold mb6'>Chose a travel mode:</h4>
-    <div class='mb12 mr12 toggle-group align-center'>
-      <label class='toggle-container'>
-        <input name='profile' type='radio' value='walking'>
-        <div class='toggle toggle--active-null toggle--null'>Walking</div>
-      </label>
-      <label class='toggle-container'>
-        <input name='profile' type='radio' value='cycling' checked>
-        <div class='toggle toggle--active-null toggle--null'>Cycling</div>
-      </label>
-      <label class='toggle-container'>
-        <input name='profile' type='radio' value='driving'>
-        <div class='toggle toggle--active-null toggle--null'>Driving</div>
-      </label>
-    </div>
-    <h4 class='txt-m txt-bold mb6'>Chose a maximum duration:</h4>
-    <div class='mb12 mr12 toggle-group align-center'>
-      <label class='toggle-container'>
-        <input name='duration' type='radio' value='10' checked>
-        <div class='toggle toggle--active-null toggle--null'>10 min</div>
-      </label>
-      <label class='toggle-container'>
-        <input name='duration' type='radio' value='20'>
-        <div class='toggle toggle--active-null toggle--null'>20 min</div>
-      </label>
-      <label class='toggle-container'>
-        <input name='duration' type='radio' value='30'>
-        <div class='toggle toggle--active-null toggle--null'>30 min</div>
-      </label>
-  </form>
+
+<style> 
+ body { margin:0; padding:0; }
+        #map { 
+        position: absolute; 
+        top: 0; right: 0; 
+        bottom: 0; left: 0;
+        width:100%;
+        height:100%; 
+        font-family: 'Ubuntu Regular';
+        }
+   
+html, body, #map{
+    height:100%;
+    margin: 0px;
+}
+body {
+  font-family: "Ubuntu Regular", sans-serif;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #887e9e;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 30px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #f8f8f8;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #3c305a;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 20px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #887e9e;
+  color: f8f8f8;
+  padding: 6px;
+  border: none;    
+  position:absolute; 
+  top:150px; 
+  left:10px; 
+  z-index:1;
+  border-radius: 3px;
+}
+
+.openbtn:hover {
+  background-color: #3c305a;
+}
+
+#main {
+  position:relative;
+  transition: margin-left .5s;
+  padding: 16px;
+  height:100%;
+
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}   
+</style>
+
+
+
+<div id="menu" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  
 </div>
+
+
+<div id="main">
+  <button class="openbtn" onclick="openNav()">☰</button>  
+ <div id='map'></div>
+</div>
+  
+<script>
+function openNav() {
+  document.getElementById("menu").style.width = "180px";
+  document.getElementById("main").style.marginLeft = "180px";
+}
+
+function closeNav() {
+  document.getElementById("menu").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+</script> 
+
 
  
 <script>
@@ -289,50 +366,7 @@ map.addLayer({
 </body>
 </html>
  
-// Show/hide layers
-<style>
-    #menu {
-        background: #fff;
-        position: absolute;
-        z-index: 1;
-        top: 5px;
-        right: 5px;
-        border-radius: 3px;
-        width: 80px;
-        border: 1px solid rgba(0,0,0,0.4);
-        font-family: 'Ubuntu Regular', sans-serif;
-    }
 
-    #menu a {
-        font-size: 13px;
-        color: #3c305a;
-        display: block;
-        margin: 0;
-        padding: 0;
-        padding: 10px;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(0,0,0,0.25);
-        text-align: center;
-    }
-
-    #menu a:last-child {
-        border: none;
-    }
-
-    #menu a:hover {
-        background-color: #f8f8f8;
-        color: #404040;
-    }
-
-    #menu a.active {
-        background-color: #3c305a;
-        color: #ffffff;
-    }
-
-    #menu a.active:hover {
-        background: #3c305a;
-    }
-</style>
 
 <nav id="menu"></nav>
 
@@ -415,6 +449,8 @@ mapboxgl: mapboxgl
 
 // Add the geocoder to the map
 map.addControl(geocoder, 'bottom-left');
+
+
 
 
 
