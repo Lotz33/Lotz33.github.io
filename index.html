@@ -279,6 +279,10 @@ map.flyTo({center: e.features[0].geometry.coordinates});
 map.on('click', 'OSM', function (e) {
 map.flyTo({center: e.features[0].geometry.coordinates});
 });
+// Center the map on the coordinates of any clicked symbol from the 'Rock Bars' layer.
+map.on('click', 'Yum', function (e) {
+map.flyTo({center: e.features[0].geometry.coordinates});
+});
 
 
 // Add geolocate control to the map.
@@ -371,7 +375,7 @@ map.addLayer({
 
 <script>
 
-var toggleableLayerIds = [ 'Breweries', 'Rock Bars', 'OSM', 'Satellite' ];
+var toggleableLayerIds = [ 'Breweries', 'Rock Bars', 'Yum', 'OSM', 'Satellite' ];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
@@ -431,6 +435,15 @@ map.on('mouseleave', 'OSM', function () {
 map.getCanvas().style.cursor = '';
 });
 
+// Change the cursor to a pointer when the it enters a feature in the 'Yum' layer.
+map.on('mouseenter', 'Yum', function () {
+map.getCanvas().style.cursor = 'pointer';
+});
+ 
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'Yum', function () {
+map.getCanvas().style.cursor = '';
+});
 
 // Add zoom and rotation controls to the map.
 var nav = new mapboxgl.NavigationControl();
